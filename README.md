@@ -2,27 +2,32 @@
 ##### 아두이노 레이싱 휠
 ***
 # 중요
-###### 아두이노 IDE필수 , 아두이노 IDE에서 " Joystic 라이브러리 "를 필수로 설치
+###### 아두이노 IDE필수 , 아두이노 IDE에서 " Joystick 라이브러리 "를 필수로 설치
+#### [조이스틱_라이브러리_최신버전_다운링크_깃허브](https://github.com/MHeironimus/ArduinoJoystickLibrary/archive/master.zip)
+위의 링크를 다운로드 (원래 아두이노 Joystick 라이브러리 지울것)
 ***
 * 코드
 ```
-int FSRsensor = A0;
-int value = 0; 
+#include <Joystick.h>
+
+Joystick_ joystick;
+
+const int SteerPin = A0;
+const int FSRsensor = A5;
 
 void setup() {
-  Serial.begin(9600);
+  joystick.begin();
 }
 
 void loop() {
-  int readValue = analogRead(A0);
-  value = analogRead(FSRsensor);
+  int steer = analogRead(SteerPin);
+  joystick.setXAxis(steer);
 
-  Serial.println(readValue);
+  int accel = analogRead(FSRsensor);
+  joystick.setThrottle(accel);
 
-  value = map(value, 0, 1023, 0, 255);
-
-  delay(1000);
-
-
+  delay(5);
+}
+// 기본 코드
 ```
 ***
